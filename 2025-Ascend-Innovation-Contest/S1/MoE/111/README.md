@@ -1,4 +1,4 @@
-# MoE模型昇腾迁移优化技术报告
+# MoE模型优化技术报告
 
 ## 📊 评测结果
 
@@ -24,7 +24,7 @@
 
 #### 1.1 使用mint算子替代ops算子
 
-将原始的`ops`算子替换为更高效的`mint`算子，充分利用昇腾NPU的硬件加速能力：
+将`ops`算子替换为`mint`算子：
 
 ```python
 # 优化前
@@ -38,7 +38,7 @@ mint.cat((freqs, freqs), dim=-1)
 mint.topk(routing_weights, self.top_k, dim=-1)
 ```
 
-**收益**：mint算子针对昇腾NPU深度优化，减少算子调度开销，提升计算效率。
+**收益**：减少了算子下发前的判断。
 
 #### 1.2 使用F.embedding替代索引操作
 
